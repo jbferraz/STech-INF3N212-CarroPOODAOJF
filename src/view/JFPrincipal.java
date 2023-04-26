@@ -17,6 +17,7 @@ public class JFPrincipal extends javax.swing.JFrame {
      */
     public JFPrincipal() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -34,12 +35,11 @@ public class JFPrincipal extends javax.swing.JFrame {
         jmArquivo = new javax.swing.JMenu();
         jmiPessoa = new javax.swing.JMenuItem();
         jmiCarro = new javax.swing.JMenuItem();
-        jMenu1 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Menu Principal");
 
-        jPanel1.setBackground(new java.awt.Color(255, 153, 51));
+        jPanel1.setBackground(new java.awt.Color(0, 153, 255));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/cadastro.png"))); // NOI18N
 
@@ -63,10 +63,12 @@ public class JFPrincipal extends javax.swing.JFrame {
         jMenuBar1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
 
         jmArquivo.setBackground(new java.awt.Color(51, 153, 255));
+        jmArquivo.setMnemonic('A');
         jmArquivo.setText("Arquivo");
 
         jmiPessoa.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.ALT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
         jmiPessoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/pessoa.png"))); // NOI18N
+        jmiPessoa.setMnemonic('P');
         jmiPessoa.setText("Pessoa");
         jmiPessoa.setToolTipText("Abre tela do CRUD da Pessoa");
         jmiPessoa.addActionListener(new java.awt.event.ActionListener() {
@@ -78,6 +80,7 @@ public class JFPrincipal extends javax.swing.JFrame {
 
         jmiCarro.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.ALT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
         jmiCarro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/carro.png"))); // NOI18N
+        jmiCarro.setMnemonic('C');
         jmiCarro.setText("Carro");
         jmiCarro.setToolTipText("Abre tela do CRUD da Carro");
         jmiCarro.addActionListener(new java.awt.event.ActionListener() {
@@ -88,9 +91,6 @@ public class JFPrincipal extends javax.swing.JFrame {
         jmArquivo.add(jmiCarro);
 
         jMenuBar1.add(jmArquivo);
-
-        jMenu1.setText("jMenu1");
-        jMenuBar1.add(jMenu1);
 
         setJMenuBar(jMenuBar1);
 
@@ -110,7 +110,8 @@ public class JFPrincipal extends javax.swing.JFrame {
 
     private void jmiPessoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiPessoaActionPerformed
         // TODO add your handling code here:
-        JOptionPane.showMessageDialog(this, "CRUD Pessoa");
+        JFPessoa pessoa = new JFPessoa();
+        pessoa.setVisible(true);
     }//GEN-LAST:event_jmiPessoaActionPerformed
 
     private void jmiCarroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCarroActionPerformed
@@ -155,7 +156,6 @@ public class JFPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JMenu jmArquivo;

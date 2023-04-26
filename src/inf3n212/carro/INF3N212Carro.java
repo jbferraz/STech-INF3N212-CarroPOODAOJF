@@ -14,6 +14,7 @@ import servicos.CarroServicos;
 import servicos.PessoaServicos;
 import servicos.ServicosFactory;
 import util.Validadores;
+import view.JFPrincipal;
 
 /**
  *
@@ -30,6 +31,9 @@ public class INF3N212Carro {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        JFPrincipal janela = new JFPrincipal();
+        janela.setVisible(true);
+        /*
         cadPessoa.mockPessoas();
         cadCarro.mockCarros();
         int opM = 99;
@@ -90,7 +94,7 @@ public class INF3N212Carro {
                     System.out.println("Opção inválida, tente novamente!");
             }
         } while (opM != 0);
-
+*/
     }//fim método main
 
     public static int leiaNumInt() {
