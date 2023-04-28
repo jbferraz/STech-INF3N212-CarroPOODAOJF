@@ -4,62 +4,19 @@
  */
 package view;
 
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
-import model.Pessoa;
-import servicos.PessoaServicos;
-import servicos.ServicosFactory;
-
 /**
  *
  * @author jbferraz
  */
-public class JFPessoa extends javax.swing.JFrame {
+public class JFCarro extends javax.swing.JFrame {
 
     /**
      * Creates new form JFPessoa
      */
-    public JFPessoa() {
+    public JFCarro() {
         initComponents();
         this.setLocationRelativeTo(null);
         jbDeletar.setVisible(false);
-        addRowToTable();
-    }
-
-    public void addRowToTable() {
-        DefaultTableModel model = (DefaultTableModel) jtPessoas.getModel();
-        model.getDataVector().removeAllElements();//remove todas linhas
-        model.fireTableDataChanged();
-        Object rowData[] = new Object[4];
-        PessoaServicos pessoaS = ServicosFactory.getPessoaServicos();
-        for (Pessoa pessoa : pessoaS.getPessoas()) {
-            rowData[0] = pessoa.getCpf();
-            rowData[1] = pessoa.getNome();
-            rowData[2] = pessoa.getTelefone();
-            rowData[3] = pessoa.getEndereco();
-            model.addRow(rowData);
-        }
-    }
-
-    public boolean validaInputs() {
-        if (jtfCPF.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Preencher CPF!");
-            jtfCPF.requestFocus();
-            return false;
-        } else if (jtfNome.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Preencher nome!");
-            jtfNome.requestFocus();
-            return false;
-        } else if (jtfEndereco.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Preencher endereço!");
-            jtfEndereco.requestFocus();
-            return false;
-        } else if (jftfTelefone.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Preencher telefone!");
-            jftfTelefone.requestFocus();
-            return false;
-        }
-        return true;
     }
 
     /**
@@ -75,13 +32,11 @@ public class JFPessoa extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel2 = new javax.swing.JLabel();
-        jtfNome = new javax.swing.JTextField();
+        jtfProprietario = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jtfCPF = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jftfTelefone = new javax.swing.JFormattedTextField();
         jLabel5 = new javax.swing.JLabel();
-        jtfEndereco = new javax.swing.JTextField();
+        jtfModelo = new javax.swing.JTextField();
         jbFechar = new javax.swing.JButton();
         jbLimpar = new javax.swing.JButton();
         jbSalvar = new javax.swing.JButton();
@@ -89,43 +44,37 @@ public class JFPessoa extends javax.swing.JFrame {
         jbDeletar = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jtPessoas = new javax.swing.JTable();
+        jtCarro = new javax.swing.JTable();
+        jtfMarca = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jtfAnofab = new javax.swing.JTextField();
+        jtfAnoMod = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        jtfCor = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        jtfCambio = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        jtfCombustivel = new javax.swing.JTextField();
+        jftfPlaca = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Gerencia Pessoa");
-        setAutoRequestFocus(false);
 
-        jPanel1.setBackground(new java.awt.Color(204, 255, 204));
+        jPanel1.setBackground(new java.awt.Color(51, 255, 204));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 51, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Gerencia Pessoa");
+        jLabel1.setText("Gerencia Carro");
 
-        jLabel2.setText("* Nome:");
+        jLabel2.setText("* CPF Proprietário:");
 
-        jLabel3.setText("* CPF:");
+        jLabel3.setText("* Placa:");
 
-        jtfCPF.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                jtfCPFFocusLost(evt);
-            }
-        });
-        jtfCPF.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jtfCPFKeyTyped(evt);
-            }
-        });
+        jLabel4.setText("* Marca:");
 
-        jLabel4.setText("* Telefone:");
-
-        try {
-            jftfTelefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)#####-####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-
-        jLabel5.setText("* Endereço:");
+        jLabel5.setText("* Modelo:");
 
         jbFechar.setText("Fechar");
         jbFechar.addActionListener(new java.awt.event.ActionListener() {
@@ -158,12 +107,12 @@ public class JFPessoa extends javax.swing.JFrame {
 
         jbDeletar.setText("Deletar");
 
-        jtPessoas.setModel(new javax.swing.table.DefaultTableModel(
+        jtCarro.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null}
             },
             new String [] {
-                "CPF", "Nome", "Telefone", "Endereço"
+                "Placa", "Marca", "Modelo", "Proprietário"
             }
         ) {
             Class[] types = new Class [] {
@@ -181,12 +130,28 @@ public class JFPessoa extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jtPessoas.addMouseListener(new java.awt.event.MouseAdapter() {
+        jtCarro.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jtPessoasMouseClicked(evt);
+                jtCarroMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(jtPessoas);
+        jScrollPane1.setViewportView(jtCarro);
+
+        jLabel6.setText("* Ano Fab.:");
+
+        jLabel7.setText("* Ano Mod.:");
+
+        jLabel8.setText("* Cor:");
+
+        jLabel9.setText("* Câmbio:");
+
+        jLabel10.setText("* Combust:");
+
+        try {
+            jftfPlaca.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("UUU-#H##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -196,24 +161,54 @@ public class JFPessoa extends javax.swing.JFrame {
             .addComponent(jSeparator1)
             .addComponent(jSeparator2)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel9)
+                        .addGap(220, 220, 220)
+                        .addComponent(jtfCombustivel, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel5))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel4))
+                        .addGap(5, 5, 5)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jtfNome)
+                            .addComponent(jtfCambio)
+                            .addComponent(jtfModelo)
+                            .addComponent(jtfMarca, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel10))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jtfAnoMod)
+                            .addComponent(jtfAnofab)
+                            .addComponent(jtfCor))
+                        .addContainerGap())
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jtfCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel4)
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jtfProprietario, javax.swing.GroupLayout.PREFERRED_SIZE, 303, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel3)
                                 .addGap(18, 18, 18)
-                                .addComponent(jftfTelefone))
-                            .addComponent(jtfEndereco)))
+                                .addComponent(jftfPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel6)))
+                        .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jbDeletar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jbEditar)
@@ -222,11 +217,8 @@ public class JFPessoa extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jbLimpar)
                         .addGap(18, 18, 18)
-                        .addComponent(jbFechar))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 1, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addComponent(jbFechar)
+                        .addGap(10, 10, 10))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -237,18 +229,32 @@ public class JFPessoa extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jtfNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtfProprietario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jtfCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6)
+                    .addComponent(jtfAnofab, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jftfPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jftfTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(jtfMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7)
+                    .addComponent(jtfAnoMod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jtfEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jtfModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8)
+                    .addComponent(jtfCor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(jtfCambio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10)
+                    .addComponent(jtfCombustivel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jbDeletar)
                     .addComponent(jbEditar)
@@ -257,8 +263,8 @@ public class JFPessoa extends javax.swing.JFrame {
                     .addComponent(jbFechar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -276,11 +282,11 @@ public class JFPessoa extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jtPessoasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtPessoasMouseClicked
+    private void jtCarroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtCarroMouseClicked
         // TODO add your handling code here:
         jbDeletar.setVisible(true);
         jbEditar.setEnabled(true);
-    }//GEN-LAST:event_jtPessoasMouseClicked
+    }//GEN-LAST:event_jtCarroMouseClicked
 
     private void jbEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEditarActionPerformed
         // TODO add your handling code here:
@@ -298,7 +304,7 @@ public class JFPessoa extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (jbLimpar.getText().equals("Limpar")) {
             limparCampos();
-        } else {
+        }else{
             jbEditar.setEnabled(false);
             jbLimpar.setText("Limpar");
             jbSalvar.setText("Salvar");
@@ -308,45 +314,20 @@ public class JFPessoa extends javax.swing.JFrame {
 
     private void jbSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalvarActionPerformed
         // TODO add your handling code here:
-        if (validaInputs()) {
-            String cpf = jtfCPF.getText();
-            String nome = jtfNome.getText().toUpperCase();
-            String telefone = jftfTelefone.getText();
-            String endereco = jtfEndereco.getText().toUpperCase();
-
-            PessoaServicos pessoaS = ServicosFactory.getPessoaServicos();
-            Pessoa p = new Pessoa(0, nome, cpf, endereco, telefone);
-            pessoaS.cadastroPessoa(p);
-            addRowToTable();
-            limparCampos();
-        }
     }//GEN-LAST:event_jbSalvarActionPerformed
 
-    private void jtfCPFFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfCPFFocusLost
-        // TODO add your handling code here:
-        PessoaServicos pessoaS = ServicosFactory.getPessoaServicos();
-        if (pessoaS.getPessoaByDoc(jtfCPF.getText()).getCpf() != null) {
-            JOptionPane.showMessageDialog(this, "CPF já cadastrado!");
-            jtfCPF.setText("");
-            jtfCPF.requestFocus();
-        }
-    }//GEN-LAST:event_jtfCPFFocusLost
-
-    private void jtfCPFKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfCPFKeyTyped
-        // TODO add your handling code here:
-        String num = "0123456789";
-        if (!num.contains(evt.getKeyChar() + "")) {
-            evt.consume();
-        }
-    }//GEN-LAST:event_jtfCPFKeyTyped
-
-    public void limparCampos() {
-        jtfNome.setText("");
-        jtfCPF.setText("");
-        jtfEndereco.setText("");
-        jftfTelefone.setText("");
+    public void limparCampos(){
+        jtfProprietario.setText("");
+        jftfPlaca.setText("");
+        jtfAnoMod.setText("");
+        jtfAnofab.setText("");
+        jtfCambio.setText("");
+        jtfCombustivel.setText("");
+        jtfMarca.setText("");
+        jtfModelo.setText("");
+        jtfCor.setText("");
     }
-
+    
     /**
      * @param args the command line arguments
      */
@@ -364,30 +345,36 @@ public class JFPessoa extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JFPessoa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFCarro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JFPessoa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFCarro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JFPessoa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFCarro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JFPessoa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFCarro.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new JFPessoa().setVisible(true);
+                new JFCarro().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
@@ -397,10 +384,15 @@ public class JFPessoa extends javax.swing.JFrame {
     private javax.swing.JButton jbFechar;
     private javax.swing.JButton jbLimpar;
     private javax.swing.JButton jbSalvar;
-    private javax.swing.JFormattedTextField jftfTelefone;
-    private javax.swing.JTable jtPessoas;
-    private javax.swing.JTextField jtfCPF;
-    private javax.swing.JTextField jtfEndereco;
-    private javax.swing.JTextField jtfNome;
+    private javax.swing.JFormattedTextField jftfPlaca;
+    private javax.swing.JTable jtCarro;
+    private javax.swing.JTextField jtfAnoMod;
+    private javax.swing.JTextField jtfAnofab;
+    private javax.swing.JTextField jtfCambio;
+    private javax.swing.JTextField jtfCombustivel;
+    private javax.swing.JTextField jtfCor;
+    private javax.swing.JTextField jtfMarca;
+    private javax.swing.JTextField jtfModelo;
+    private javax.swing.JTextField jtfProprietario;
     // End of variables declaration//GEN-END:variables
 }

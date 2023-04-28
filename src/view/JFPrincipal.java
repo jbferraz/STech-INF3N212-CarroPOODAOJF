@@ -116,7 +116,8 @@ public class JFPrincipal extends javax.swing.JFrame {
 
     private void jmiCarroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCarroActionPerformed
         // TODO add your handling code here:
-        JOptionPane.showMessageDialog(this, "CRUD Carro");
+        JFCarro carro = new JFCarro();
+        carro.setVisible(true);
     }//GEN-LAST:event_jmiCarroActionPerformed
 
     /**
