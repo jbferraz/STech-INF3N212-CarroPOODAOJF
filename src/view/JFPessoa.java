@@ -287,6 +287,15 @@ public class JFPessoa extends javax.swing.JFrame {
         jbDeletar.setVisible(false);
         jbSalvar.setText("Confirmar");
         jbLimpar.setText("Cancelar");
+        
+        int linha = jtPessoas.getSelectedRow();
+        String cpf = (String) jtPessoas.getValueAt(linha, 0);
+        PessoaServicos pessoaS = ServicosFactory.getPessoaServicos();
+        Pessoa p = pessoaS.getPessoaByDoc(cpf);
+        jtfNome.setText(p.getNome());
+        jtfCPF.setText(p.getCpf());
+        jtfEndereco.setText(p.getEndereco());
+        jftfTelefone.setText(p.getTelefone());
     }//GEN-LAST:event_jbEditarActionPerformed
 
     private void jbFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbFecharActionPerformed
