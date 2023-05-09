@@ -157,6 +157,11 @@ public class JFPessoa extends javax.swing.JFrame {
         });
 
         jbDeletar.setText("Deletar");
+        jbDeletar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbDeletarActionPerformed(evt);
+            }
+        });
 
         jtPessoas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -287,7 +292,7 @@ public class JFPessoa extends javax.swing.JFrame {
         jbDeletar.setVisible(false);
         jbSalvar.setText("Confirmar");
         jbLimpar.setText("Cancelar");
-        
+
         int linha = jtPessoas.getSelectedRow();
         String cpf = (String) jtPessoas.getValueAt(linha, 0);
         PessoaServicos pessoaS = ServicosFactory.getPessoaServicos();
@@ -325,7 +330,11 @@ public class JFPessoa extends javax.swing.JFrame {
 
             PessoaServicos pessoaS = ServicosFactory.getPessoaServicos();
             Pessoa p = new Pessoa(0, nome, cpf, endereco, telefone);
-            pessoaS.cadastroPessoa(p);
+            if (jbSalvar.getText().equals("Salvar")) {
+                pessoaS.cadastroPessoa(p);
+            } else {
+                pessoaS.atualizarPessoa(p);
+            }
             addRowToTable();
             limparCampos();
         }
@@ -348,6 +357,27 @@ public class JFPessoa extends javax.swing.JFrame {
             evt.consume();
         }
     }//GEN-LAST:event_jtfCPFKeyTyped
+
+    private void jbDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbDeletarActionPerformed
+        // TODO add your handling code here:
+        int linha = jtPessoas.getSelectedRow();
+        String cpf = (String) jtPessoas.getValueAt(linha, 0);
+        PessoaServicos pessoaS = ServicosFactory.getPessoaServicos();
+        String nome = pessoaS.getPessoaByDoc(cpf).getNome();
+        Object[] btnMSG = {"Sim", "Não"};
+        int resp = JOptionPane.showOptionDialog(this,
+                "Deseja realmente deletar " + nome, ".: Deletar :.",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
+                null, btnMSG, btnMSG[1]);
+        if (resp == 0) {
+            pessoaS.deletarPessoa(cpf);
+            addRowToTable();
+            JOptionPane.showMessageDialog(this, "Pessoa deletada com sucesso!");
+        } else {
+            JOptionPane.showMessageDialog(this, "Ok, delete cancelado pelo usuário!");
+        }
+        jbLimpar.doClick();
+    }//GEN-LAST:event_jbDeletarActionPerformed
 
     public void limparCampos() {
         jtfNome.setText("");
