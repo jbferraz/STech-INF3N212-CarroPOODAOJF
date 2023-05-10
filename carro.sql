@@ -7,7 +7,7 @@ CREATE TABLE pessoas (
     nome VARCHAR(60),
     cpf VARCHAR(14) NOT NULL UNIQUE,
     endereco VARCHAR(60),
-    telefone VARCHAR(11)
+    telefone VARCHAR(14)
 );
 
 CREATE TABLE carros (

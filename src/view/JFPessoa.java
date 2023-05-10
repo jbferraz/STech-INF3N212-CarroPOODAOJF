@@ -368,7 +368,7 @@ public class JFPessoa extends javax.swing.JFrame {
         int resp = JOptionPane.showOptionDialog(this,
                 "Deseja realmente deletar " + nome, ".: Deletar :.",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
-                null, btnMSG, btnMSG[1]);
+                null, btnMSG, btnMSG[0]);
         if (resp == 0) {
             pessoaS.deletarPessoa(cpf);
             addRowToTable();
