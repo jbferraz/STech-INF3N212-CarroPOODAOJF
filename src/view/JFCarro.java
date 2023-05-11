@@ -7,6 +7,7 @@ package view;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Carro;
+import model.Pessoa;
 import servicos.CarroServicos;
 import servicos.PessoaServicos;
 import servicos.ServicosFactory;
@@ -67,13 +68,13 @@ public class JFCarro extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Campo Ano do Modelo obrigatório!");
             jtfAnoMod.requestFocus();
             return false;
-        } else if (jtfCambio.getText().equals("")) {
+        } else if (!jrbManual.isSelected() && !jrbAuto.isSelected()) {
             JOptionPane.showMessageDialog(this, "Campo Cambio obrigatório!");
-            jtfCambio.requestFocus();
+            //jtfCambio.requestFocus();
             return false;
-        } else if (jtfCombustivel.getText().equals("")) {
+        } else if (jcbCombustivel.getSelectedItem().equals("Selecione...")) {
             JOptionPane.showMessageDialog(this, "Campo Combustivel obrigatório!");
-            jtfCombustivel.requestFocus();
+            jcbCombustivel.requestFocus();
             return false;
         } else if (jtfProprietario.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Campo Proprietario obrigatório!");
@@ -92,6 +93,7 @@ public class JFCarro extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        bgCambio = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
@@ -117,14 +119,15 @@ public class JFCarro extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jtfCor = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        jtfCambio = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        jtfCombustivel = new javax.swing.JTextField();
         jftfPlaca = new javax.swing.JFormattedTextField();
         jlProp = new javax.swing.JLabel();
+        jcbCombustivel = new javax.swing.JComboBox<>();
+        jrbManual = new javax.swing.JRadioButton();
+        jrbAuto = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Gerencia Pessoa");
+        setTitle("Gerencia Carro");
 
         jPanel1.setBackground(new java.awt.Color(51, 255, 204));
 
@@ -138,6 +141,11 @@ public class JFCarro extends javax.swing.JFrame {
         jtfProprietario.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 jtfProprietarioFocusLost(evt);
+            }
+        });
+        jtfProprietario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtfProprietarioKeyTyped(evt);
             }
         });
 
@@ -177,6 +185,11 @@ public class JFCarro extends javax.swing.JFrame {
         });
 
         jbDeletar.setText("Deletar");
+        jbDeletar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbDeletarActionPerformed(evt);
+            }
+        });
 
         jtCarros.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -212,6 +225,25 @@ public class JFCarro extends javax.swing.JFrame {
 
         jLabel7.setText("* Ano Mod.:");
 
+        jtfAnofab.setToolTipText("Informe o ano com 4 digitos");
+        jtfAnofab.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtfAnofabKeyTyped(evt);
+            }
+        });
+
+        jtfAnoMod.setToolTipText("Informe o ano com 4 digitos");
+        jtfAnoMod.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jtfAnoModFocusLost(evt);
+            }
+        });
+        jtfAnoMod.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtfAnoModKeyTyped(evt);
+            }
+        });
+
         jLabel8.setText("* Cor:");
 
         jLabel9.setText("* Câmbio:");
@@ -226,6 +258,15 @@ public class JFCarro extends javax.swing.JFrame {
 
         jlProp.setText(" ");
         jlProp.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jcbCombustivel.setMaximumRowCount(6);
+        jcbCombustivel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione...", "Álcool", "Gasolina", "GNV", "Flex", "Diesel" }));
+
+        bgCambio.add(jrbManual);
+        jrbManual.setText("Manual");
+
+        bgCambio.add(jrbAuto);
+        jrbAuto.setText("Auto");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -242,52 +283,41 @@ public class JFCarro extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel9)
-                        .addGap(220, 220, 220)
-                        .addComponent(jtfCombustivel, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jrbManual)))
+                .addContainerGap(23, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel4))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jtfCambio)
-                                .addGap(18, 18, 18))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel4))
+                                .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jtfModelo, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jtfMarca))
-                                .addGap(28, 28, 28)))
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel10))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(71, 71, 71)
+                                        .addComponent(jLabel7))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel8))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jtfAnoMod)
                             .addComponent(jtfAnofab)
-                            .addComponent(jtfCor))
+                            .addComponent(jtfCor)
+                            .addComponent(jcbCombustivel, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addContainerGap())
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jftfPlaca, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
-                            .addComponent(jtfProprietario))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jlProp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addContainerGap())))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jbDeletar)
@@ -299,7 +329,24 @@ public class JFCarro extends javax.swing.JFrame {
                         .addComponent(jbLimpar)
                         .addGap(18, 18, 18)
                         .addComponent(jbFechar)
-                        .addGap(10, 10, 10))))
+                        .addGap(10, 10, 10))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jrbAuto, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel3))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jtfProprietario, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(4, 4, 4)
+                                        .addComponent(jftfPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(18, 18, 18)
+                        .addComponent(jlProp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -333,9 +380,10 @@ public class JFCarro extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(jtfCambio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10)
-                    .addComponent(jtfCombustivel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jcbCombustivel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jrbManual)
+                    .addComponent(jrbAuto))
                 .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(jbDeletar)
@@ -396,7 +444,30 @@ public class JFCarro extends javax.swing.JFrame {
 
     private void jbSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalvarActionPerformed
         // TODO add your handling code here:
+        if (validaInputs()) {
+            PessoaServicos pessoaS = ServicosFactory.getPessoaServicos();
+            CarroServicos carroS = ServicosFactory.getCarroServicos();
+            String placa = jftfPlaca.getText().toUpperCase();
+            String marca = jtfMarca.getText().toUpperCase();
+            String modelo = jtfModelo.getText().toUpperCase();
+            int anoFab = Integer.parseInt(jtfAnofab.getText());
+            int anoMod = Integer.parseInt(jtfAnoMod.getText());
+            String cor = jtfCor.getText().toUpperCase();
+            String cambio = bgCambio.getSelection().getActionCommand();
+            String combustivel = jcbCombustivel.getSelectedItem().toString();
+            Pessoa proprietario = pessoaS.getPessoaByDoc(jtfProprietario.getText());
 
+            Carro c = new Carro(placa, marca, modelo, anoFab, anoMod, cor, cambio, combustivel, proprietario);
+            System.out.println(c.toString());
+            if (jbSalvar.getText().equals("Salvar")) {
+                carroS.cadastroCarro(c);
+            } else {
+                carroS.atualizarCarro(c);
+            }
+            addRowToTable();
+            limparCampos();
+
+        }
     }//GEN-LAST:event_jbSalvarActionPerformed
 
     private void jtfProprietarioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfProprietarioFocusLost
@@ -428,13 +499,61 @@ public class JFCarro extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jtfProprietarioFocusLost
 
+    private void jbDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbDeletarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jbDeletarActionPerformed
+
+    private void jtfProprietarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfProprietarioKeyTyped
+        // TODO add your handling code here:
+        String num = "0123456789";
+        if (!num.contains(evt.getKeyChar() + "")) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_jtfProprietarioKeyTyped
+
+    private void jtfAnoModFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfAnoModFocusLost
+        // TODO add your handling code here:
+        int anoFab = Integer.parseInt(jtfAnofab.getText());
+        int anoMod = Integer.parseInt(jtfAnoMod.getText());
+
+        if (!Validadores.validarAnoCarro(anoFab, anoMod)) {
+            JOptionPane.showMessageDialog(this,
+                    "Informações de ano inválidas!");
+            jtfAnofab.requestFocus();
+        }
+    }//GEN-LAST:event_jtfAnoModFocusLost
+
+    private void jtfAnoModKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfAnoModKeyTyped
+        // TODO add your handling code here:
+        if (jtfAnoMod.getText().length() < 4) {
+            String num = "0123456789";
+            if (!num.contains(evt.getKeyChar() + "")) {
+                evt.consume();
+            }
+        }else{
+            evt.consume();
+        }
+    }//GEN-LAST:event_jtfAnoModKeyTyped
+
+    private void jtfAnofabKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfAnofabKeyTyped
+        // TODO add your handling code here:
+        if (jtfAnofab.getText().length() < 4) {
+            String num = "0123456789";
+            if (!num.contains(evt.getKeyChar() + "")) {
+                evt.consume();
+            }
+        }else{
+            evt.consume();
+        }
+    }//GEN-LAST:event_jtfAnofabKeyTyped
+
     public void limparCampos() {
         jtfProprietario.setText("");
         jftfPlaca.setText("");
         jtfAnoMod.setText("");
         jtfAnofab.setText("");
-        jtfCambio.setText("");
-        jtfCombustivel.setText("");
+        jcbCombustivel.setSelectedIndex(0);
+        bgCambio.clearSelection();
         jtfMarca.setText("");
         jtfModelo.setText("");
         jtfCor.setText("");
@@ -478,6 +597,7 @@ public class JFCarro extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup bgCambio;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -497,13 +617,14 @@ public class JFCarro extends javax.swing.JFrame {
     private javax.swing.JButton jbFechar;
     private javax.swing.JButton jbLimpar;
     private javax.swing.JButton jbSalvar;
+    private javax.swing.JComboBox<String> jcbCombustivel;
     private javax.swing.JFormattedTextField jftfPlaca;
     private javax.swing.JLabel jlProp;
+    private javax.swing.JRadioButton jrbAuto;
+    private javax.swing.JRadioButton jrbManual;
     private javax.swing.JTable jtCarros;
     private javax.swing.JTextField jtfAnoMod;
     private javax.swing.JTextField jtfAnofab;
-    private javax.swing.JTextField jtfCambio;
-    private javax.swing.JTextField jtfCombustivel;
     private javax.swing.JTextField jtfCor;
     private javax.swing.JTextField jtfMarca;
     private javax.swing.JTextField jtfModelo;
