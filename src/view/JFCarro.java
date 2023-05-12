@@ -4,6 +4,7 @@
  */
 package view;
 
+import java.awt.event.ActionEvent;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Carro;
@@ -26,6 +27,7 @@ public class JFCarro extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         jbDeletar.setVisible(false);
+        addRowToTable();
     }
 
     public void addRowToTable() {
@@ -264,9 +266,19 @@ public class JFCarro extends javax.swing.JFrame {
 
         bgCambio.add(jrbManual);
         jrbManual.setText("Manual");
+        jrbManual.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jrbManualActionPerformed(evt);
+            }
+        });
 
         bgCambio.add(jrbAuto);
         jrbAuto.setText("Auto");
+        jrbAuto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jrbAutoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -423,6 +435,25 @@ public class JFCarro extends javax.swing.JFrame {
         jbDeletar.setVisible(false);
         jbSalvar.setText("Confirmar");
         jbLimpar.setText("Cancelar");
+
+        int linha = jtCarros.getSelectedRow();
+        String placa = (String) jtCarros.getValueAt(linha, 0);
+        CarroServicos carroS = ServicosFactory.getCarroServicos();
+        Carro c = carroS.getCarroByDoc(placa);
+        jtfProprietario.setText(c.getProprietario().getCpf());
+        jftfPlaca.setText(c.getPlaca());
+        jtfAnofab.setText(Integer.toString(c.getAnoFab()));
+        jtfAnoMod.setText(Integer.toString(c.getAnoMod()));
+        jtfCor.setText(c.getCor());
+        jtfMarca.setText(c.getMarca());
+        jtfModelo.setText(c.getModelo());
+        jcbCombustivel.setSelectedItem(c.getCombustivel());
+        if (c.getTpCambio().equalsIgnoreCase("Manual")) {
+            jrbManual.setSelected(true);
+        } else {
+            jrbAuto.setSelected(true);
+        }
+
     }//GEN-LAST:event_jbEditarActionPerformed
 
     private void jbFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbFecharActionPerformed
@@ -442,6 +473,8 @@ public class JFCarro extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jbLimparActionPerformed
 
+    private static String bgCambio2;
+
     private void jbSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalvarActionPerformed
         // TODO add your handling code here:
         if (validaInputs()) {
@@ -453,11 +486,11 @@ public class JFCarro extends javax.swing.JFrame {
             int anoFab = Integer.parseInt(jtfAnofab.getText());
             int anoMod = Integer.parseInt(jtfAnoMod.getText());
             String cor = jtfCor.getText().toUpperCase();
-            String cambio = bgCambio.getSelection().getActionCommand();
-            String combustivel = jcbCombustivel.getSelectedItem().toString();
+            String cambio = bgCambio2.toUpperCase();
+            String combustivel = jcbCombustivel.getSelectedItem().toString().toUpperCase();
             Pessoa proprietario = pessoaS.getPessoaByDoc(jtfProprietario.getText());
-
-            Carro c = new Carro(placa, marca, modelo, anoFab, anoMod, cor, cambio, combustivel, proprietario);
+            Carro c = new Carro(placa, marca, modelo, anoFab, anoMod, cor,
+                    cambio, combustivel, proprietario);
             System.out.println(c.toString());
             if (jbSalvar.getText().equals("Salvar")) {
                 carroS.cadastroCarro(c);
@@ -472,30 +505,32 @@ public class JFCarro extends javax.swing.JFrame {
 
     private void jtfProprietarioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jtfProprietarioFocusLost
         // TODO add your handling code here:
-        PessoaServicos pessoaS = ServicosFactory.getPessoaServicos();
-        String cpf, nome;
-        cpf = jtfProprietario.getText();
-        if (Validadores.isCPF(cpf)) {
-            nome = pessoaS.getPessoaByDoc(cpf).getNome();
-            if (nome == null) {
-                JOptionPane.showMessageDialog(this, "Pessoa não existe!");
-                jtfProprietario.requestFocus();
-            } else {
-                Object[] btnMSG = {"Sim", "Não"};
-                int resp = JOptionPane.showOptionDialog(this,
-                        "Este é o proprietário?\n" + nome, ".: Proprietário :.",
-                        JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
-                        null, btnMSG, btnMSG[0]);
-                if (resp == 0) {
-                    jlProp.setText(nome);
-                } else {
+        if (!jtfProprietario.getText().equals("")) {
+            PessoaServicos pessoaS = ServicosFactory.getPessoaServicos();
+            String cpf, nome;
+            cpf = jtfProprietario.getText();
+            if (Validadores.isCPF(cpf)) {
+                nome = pessoaS.getPessoaByDoc(cpf).getNome();
+                if (nome == null) {
+                    JOptionPane.showMessageDialog(this, "Pessoa não existe!");
                     jtfProprietario.requestFocus();
-                    jtfProprietario.setText("");
+                } else {
+                    Object[] btnMSG = {"Sim", "Não"};
+                    int resp = JOptionPane.showOptionDialog(this,
+                            "Este é o proprietário?\n" + nome, ".: Proprietário :.",
+                            JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE,
+                            null, btnMSG, btnMSG[0]);
+                    if (resp == 0) {
+                        jlProp.setText(nome);
+                    } else {
+                        jtfProprietario.requestFocus();
+                        jtfProprietario.setText("");
+                    }
                 }
+            } else {
+                JOptionPane.showMessageDialog(this, "CPF inválido!");
+                jtfProprietario.requestFocus();
             }
-        } else {
-            JOptionPane.showMessageDialog(this, "CPF inválido!");
-            jtfProprietario.requestFocus();
         }
     }//GEN-LAST:event_jtfProprietarioFocusLost
 
@@ -530,7 +565,7 @@ public class JFCarro extends javax.swing.JFrame {
             if (!num.contains(evt.getKeyChar() + "")) {
                 evt.consume();
             }
-        }else{
+        } else {
             evt.consume();
         }
     }//GEN-LAST:event_jtfAnoModKeyTyped
@@ -542,10 +577,20 @@ public class JFCarro extends javax.swing.JFrame {
             if (!num.contains(evt.getKeyChar() + "")) {
                 evt.consume();
             }
-        }else{
+        } else {
             evt.consume();
         }
     }//GEN-LAST:event_jtfAnofabKeyTyped
+
+    private void jrbManualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbManualActionPerformed
+        // TODO add your handling code here:
+        bgCambio2 = evt.getActionCommand();
+    }//GEN-LAST:event_jrbManualActionPerformed
+
+    private void jrbAutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbAutoActionPerformed
+        // TODO add your handling code here:
+        bgCambio2 = evt.getActionCommand();
+    }//GEN-LAST:event_jrbAutoActionPerformed
 
     public void limparCampos() {
         jtfProprietario.setText("");

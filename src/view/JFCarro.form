@@ -433,6 +433,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Manual"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jrbManualActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JRadioButton" name="jrbAuto">
           <Properties>
@@ -441,6 +444,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Auto"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jrbAutoActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
