@@ -292,6 +292,7 @@ public class JFPessoa extends javax.swing.JFrame {
         jbDeletar.setVisible(false);
         jbSalvar.setText("Confirmar");
         jbLimpar.setText("Cancelar");
+        jtfCPF.setEnabled(false);
 
         int linha = jtPessoas.getSelectedRow();
         String cpf = (String) jtPessoas.getValueAt(linha, 0);
